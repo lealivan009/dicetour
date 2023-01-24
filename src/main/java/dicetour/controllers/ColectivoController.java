@@ -56,6 +56,19 @@ public class ColectivoController extends BaseControllerImpl<Colectivo, Colectivo
     }
 
 
+    @GetMapping("/busqueda")
+    public String busqueda(Model model, @RequestParam(value = "query", required = false) String q) {
+        try {
+            List<Colectivo> colectivos = servicio.findByTitle(q);
+            model.addAttribute("colectivos", colectivos);
+
+            return "views/seleccionHorariosBusqueda";
+        } catch (Exception e) {
+            return "error";
+        }
+    }
+
+
     //---------------------------------->HORARIOS-CRUD<---------------------------------
     //------------------------------------------------------------------------------------
     //MUESTRA UNA LISTA CON TODOS LOS COLECTIVOS PARA LUEGO MOSTRAR LOS HORARIOS

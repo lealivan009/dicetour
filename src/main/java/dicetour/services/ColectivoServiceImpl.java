@@ -27,4 +27,14 @@ public class ColectivoServiceImpl extends BaseServiceImpl<Colectivo, Long> imple
             return null;
         }
     }
+
+    @Transactional
+    public List<Colectivo> findByTitle(String q) throws Exception{
+        try {
+            List<Colectivo> colectivos= colectivoRepository.findByTitle(q);
+            return colectivos;
+        }catch (Exception e){
+            return null;
+        }
+    }
 }
