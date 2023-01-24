@@ -30,10 +30,10 @@
 
   <nav th:replace="components/navbar :: nav_bar"></nav>
 
-  <div class="container mx-auto " style="width: 50%;">
-      <form class="form-inline " th:action="@{/colectivo/busqueda}">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar colectivo" aria-label="Search" style="width: 80%" name="query">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Buscar</button>
+  <div class="container " style="width: 100%;">
+      <form class="form-inline  " th:action="@{/colectivo/busqueda} " >
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar colectivo" aria-label="Search" style="width: 60%" name="query">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit" >Buscar</button>
       </form>
   </div>
 
