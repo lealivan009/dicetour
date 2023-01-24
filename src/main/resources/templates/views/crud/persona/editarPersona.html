@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org" >
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+
+  <!-- Fuente para icono de ojo-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>Dicetours</title>
+</head>
+
+<body>
+  <!--========================================================== -->
+  <!-- ENCABEZADO -->
+  <!--========================================================== -->
+  <header class="container-fluid bg-warning d-flex justify-content-center">
+    <p class="text-light mb-0 p-2 fs-6">Design by Ivan Leal</p>
+  </header>
+
+  <nav th:replace="components/navbar :: nav_bar"></nav>
+
+  <script>
+    function mostrarContrasena(){
+        var tipo = document.getElementById("password");
+        if(tipo.type == "password"){
+            tipo.type = "text";
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        }else{
+            tipo.type = "password";
+            $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+        }
+    }
+
+</script>
+
+
+  <div class="container bg-secondary text-light border border-dark rounded  mx-auto">
+    <form   th:action="@{/persona/actualizarPersona/{id}(id=${persona.id})}" th:object="${persona}" method="post">
+      <h1 class="text-center p-3">Modificar Persona!</h1>
+
+      <div class="form-group px-3 py-2">
+          <h2 th:text="'Nombre y Apellido: '+*{nombre}+', '+*{apellido}"></h2>
+          <h2 th:text="'DNI: '+*{dni}"></h2>
+          <h2 th:text="'Fecha de Nacimiento: '+${fechaNacimiento}"></h2>
+
+      </div>
+
+      <div class="form-group px-3 py-2">
+        <label for="domicilio">Domicilio</label>
+        <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="Cordoba 1435" th:field="*{domicilio}">
+        <div class="text-warning" th:if="${#fields.hasErrors('domicilio')}" th:errors="*{domicilio}"></div>
+      </div>
+      <div class="row px-3 py-2">
+        <div class="form-group col-md-6">
+          <label for="ciudad">Ciudad</label>
+          <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" th:field="*{ciudad}">
+
+        </div>
+        <div class="form-group col-md-4">
+          <label for="provincia">Provicia</label>
+          <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" th:field="*{provincia}">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="codigoPostal">Codigo Postal</label>
+          <input type="number" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo Postal" th:field="*{codigoPostal}">
+        </div>
+      </div>
+      <hr>
+      <div class="row px-3 py-2 ">
+        <div class="form-group col-md-6">
+          <label for="correo">Correo</label>
+          <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo" th:field="*{cuenta.email}">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="password">Contraseña</label>
+          <div class="d-flex">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" th:field="*{cuenta.password}">
+            <button class="btn btn-primary" type="button" onclick="mostrarContrasena()"><span
+                    class="fa fa-eye-slash icon"></span></button>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <div class="form-group col-12 px-3 py-2">
+        <table class="table bg-light text-dark">
+          <thead>
+          <tr>
+            <th scope="col" class="w-75">Rol</th>
+            <th scope="col">Accion</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="rol: ${persona.cuenta.roles}">
+            <th scope="row"  th:text="${rol.nombre}">1</th>
+            <td> <a th:href="@{/persona/confirmarQuitarRol/{idPersona}/{idRol}(idPersona=${persona.id},idRol=${rol.id})}"class="btn btn-danger">Dar de Baja</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <a class="btn btn-success" th:href="@{/persona/agregarRol/{id} (id=*{id})}">Agregar Rol</a>
+      </div>
+
+      <hr>
+      <div class="d-flex justify-content-center mb-3">
+        <button type="submit" class="btn btn-warning">Cambiar</button>
+      </div>
+    </form>
+  </div>
+
+  <br>
+
+
+
+  <!--========================================================== -->
+  <!--FOOTER-->
+  <!--========================================================== -->
+
+
+  <footer th:replace="components/footer :: footer"></footer>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
+  
+</body>
+
+</html>

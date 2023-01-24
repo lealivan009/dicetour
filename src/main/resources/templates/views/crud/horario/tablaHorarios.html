@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <title>ExpertD.</title>
+
+
+</head>
+
+<body>
+<!--========================================================== -->
+<!-- ENCABEZADO -->
+<!--========================================================== -->
+<header class="container-fluid bg-warning d-flex justify-content-center">
+    <p class="text-light mb-0 p-2 fs-6">Design by Ivan Leal</p>
+</header>
+
+<nav th:replace="components/navbar :: nav_bar"></nav>
+
+
+<br>
+<div class="container">
+    <h1 class="text-center bg-warning text-light" th:text="${colectivo.nombreColectivo}">Nombre del colectivo</h1>
+</div>
+
+<h1 class="text-center"
+    th:text="'De: ' + ${colectivo.getRecorridos().get(0).origen.nombre}+ ' a '+${colectivo.getRecorridos().get(0).destino.nombre}">
+    De "Rivadavia" a "Mza"</h1>
+
+
+<div class="container">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th class="text-center" scope="col">Salida</th>
+            <th class="text-center" scope="col">Llegada</th>
+            <th class="w-25 text-center" scope="col">Accion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detalleRecorrido  :${colectivo.getRecorridos().get(0).detalleRecorridos}">
+            <td class="text-center" th:text="*{detalleRecorrido.horaInicio}">Hora inicio</td>
+            <td class="text-center" th:text="*{detalleRecorrido.horaFin}">Hora fin</td>
+            <td class="text-center">
+                <a th:href="@{/colectivo/editarHorario/{idColectivo}/{idRecorrido} (idColectivo=${colectivo.id},idRecorrido=${detalleRecorrido.id})}"
+                   class="btn btn-warning"><span class="d-none d-sm-none d-md-block">Editar</span><i
+                        class="bi bi-pencil-square d-block d-sm-block d-md-none"></i></a>
+                <a th:if="${detalleRecorrido.vigente}"
+                   th:href="@{/detalleRecorrido/confirmarBajaDetalleRecorrido/{idColectivo}/{idRecorrido} (idColectivo=${colectivo.id},idRecorrido=${detalleRecorrido.id})}"
+                   class="btn btn-danger"><span class="d-none d-sm-none d-md-block">Dar de Baja</span><i
+                        class="bi bi-arrow-down-circle-fill d-block d-sm-block d-md-none"></i></a>
+                <a th:unless="${detalleRecorrido.vigente}"
+                   th:href="@{/detalleRecorrido/confirmarAltaDetalleRecorrido/{idColectivo}/{idRecorrido} (idColectivo=${colectivo.id},idRecorrido=${detalleRecorrido.id})}"
+                   class="btn btn-success"><span class="d-none d-sm-none d-md-block">Dar de Alta</span><i
+                        class="bi bi-arrow-up-circle-fill d-block d-sm-block d-md-none"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a th:href="@{/colectivo/nuevoHorario/{id}/0 (id=${colectivo.id})}"
+           class="btn btn-success btn-primary-outline-success" type="button">Nuevo Horario</a>
+    </div>
+</div>
+
+<br>
+<h1 class="text-center"
+    th:text="'De: ' + ${colectivo.getRecorridos().get(1).origen.nombre}+ ' a '+${colectivo.getRecorridos().get(1).destino.nombre}">
+    De "Rivadavia" a "Mza"</h1>
+
+<div class="container">
+
+</div>
+
+<div class="container">
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th class="text-center" scope="col">Salida</th>
+            <th class="text-center" scope="col">Llegada</th>
+            <th class="w-25 text-center" scope="col">Accion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detalleRecorrido  :${colectivo.getRecorridos().get(1).detalleRecorridos}">
+            <td class="text-center" th:text="*{detalleRecorrido.horaInicio}">Hora de Salida</td>
+            <td class="text-center" th:text="*{detalleRecorrido.horaFin}">Hora de Llegada</td>
+            <td class="text-center">
+                <a th:href="@{/colectivo/editarHorario/{idColectivo}/{idRecorrido} (idColectivo=${colectivo.id},idRecorrido=${detalleRecorrido.id})}"
+                   class="btn btn-warning"><span class="d-none d-sm-none d-md-block">Editar</span><i
+                        class="bi bi-pencil-square d-block d-sm-block d-md-none"></i></a>
+                <a th:if="${detalleRecorrido.vigente}"
+                   th:href="@{/detalleRecorrido/confirmarBajaDetalleRecorrido/{idColectivo}/{idRecorrido} (idColectivo=${colectivo.id},idRecorrido=${detalleRecorrido.id})}"
+                   class="btn btn-danger"><span class="d-none d-sm-none d-md-block">Dar de Baja</span><i
+                        class="bi bi-arrow-down-circle-fill d-block d-sm-block d-md-none"></i></a>
+                <a th:unless="${detalleRecorrido.vigente}"
+                   th:href="@{/detalleRecorrido/confirmarAltaDetalleRecorrido/{idColectivo}/{idRecorrido} (idColectivo=${colectivo.id},idRecorrido=${detalleRecorrido.id})}"
+                   class="btn btn-success"><span class="d-none d-sm-none d-md-block">Dar de Alta</span><i
+                        class="bi bi-arrow-up-circle-fill d-block d-sm-block d-md-none"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a th:href="@{/colectivo/nuevoHorario/{id}/1 (id=${colectivo.id})}"
+           class="btn btn-success btn-primary-outline-success" type="button">Nuevo Horario</a>
+    </div>
+</div>
+<br>
+
+
+<!--========================================================== -->
+<!--FOOTER-->
+<!--========================================================== -->
+
+
+<footer th:replace="components/footer :: footer"></footer>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
+
+</body>
+
+</html>

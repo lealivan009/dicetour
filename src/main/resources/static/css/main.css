@@ -1,0 +1,60 @@
+/*===============Propiedades Globales================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    display: flex;  /* parte imporante para que el footer este siempre abajo*/
+    flex-direction: column;  /* parte imporante para que el footer este siempre abajo*/
+    min-height: 100vh;  /* parte imporante para que el footer este siempre abajo*/
+}
+
+
+/*===================MENU==========================*/
+
+ #menu a, button{
+     font-size: 18px !important;
+     font-weight: 600;
+    
+ }
+
+ #menu a{
+     color:#3f3f3f;
+     
+ }
+
+ i{
+ /*
+    //color: rgb(255, 213, 0);
+ */
+ color: #ffffff;
+ }
+
+/*===================SLIDER DE IMAGENES==========================*/
+
+.carousel-inner {
+    max-height:50rem !important;
+}
+
+.carousel-inner img{
+    max-height: 50rem !important;
+}
+/*=========================FOOTER================================*/
+
+footer {
+    background: #ffc107;
+    min-height: 100px;;
+    margin-top: auto; /* parte imporante para que el footer este siempre abajo*/
+}
+footer p{
+    color:#f3f3f3;
+    text-align:center;
+}
+/*
+#iconos  i {
+    font-size: 26px;
+    padding: 0 8px;
+    color:#f3f3f3;
+}
+*/

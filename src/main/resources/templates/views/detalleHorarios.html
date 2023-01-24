@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org" >
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+
+  <title>Dicetours</title>
+
+  <style type="text/css">
+        h1 {
+        font-family: Arial,sans-serif;
+        color: #000000;
+        }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+  <!--========================================================== -->
+  <!-- ENCABEZADO -->
+  <!--========================================================== -->
+  <header class="container-fluid bg-warning d-flex justify-content-center">
+    <p class="text-light mb-0 p-2 fs-6">Design by Ivan Leal</p>
+  </header>
+
+  <nav th:replace="components/navbar :: nav_bar"></nav>
+
+  <h1 class="text-center text" id="HoraActual"></h1>
+
+  <script>
+    // JavaScript code
+    showTime();
+    function showTime(){
+    myDate = new Date();
+    hours = myDate.getHours();
+    minutes = myDate.getMinutes();
+    seconds = myDate.getSeconds();
+    if (hours < 10) hours = 0 + hours;
+
+    if (minutes < 10) minutes = "0" + minutes;
+
+    if (seconds < 10) seconds = "0" + seconds;
+
+    $("#HoraActual").text(hours+ ":" +minutes+ ":" +seconds);
+    setTimeout("showTime()", 1000);
+    }
+</script>
+
+<br>
+
+    <div class="container">
+      <h1 class="text-center bg-warning text-light" th:text="${colectivo.nombreColectivo}">Nombre del colectivo</h1>
+      <h4 class="text-center text-danger m-3" th:text="${colectivo.observaciones}">Observaciones</h4>
+    </div>
+    <h1 class="text-center" th:text="'De: ' + ${colectivo.getRecorridos().get(0).origen.nombre}+ ' a '+${colectivo.getRecorridos().get(0).destino.nombre}">De "Rivadavia" a "Mza"</h1>
+    <div class="container">
+    <table class="table table-hover table-bordered">
+      <thead class="bg-dark text-light">
+        <tr>
+          <th class="text-center " scope="col">Salida</th>
+          <th class="text-center" scope="col">Llegada</th>
+        </tr>
+      </thead>
+      <tbody>
+       <tr th:each="detalleRecorrido :${colectivo.getRecorridos().get(0).detalleRecorridos}" >
+          <td th:if="${detalleRecorrido.vigente}" class="text-center" th:text="*{detalleRecorrido.horaInicio}">Hora de Salida</td>
+          <td th:if="${detalleRecorrido.vigente}" class="text-center" th:text="*{detalleRecorrido.horaFin}">Hora de Llegada</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+  <h1 class="text-center" th:text="'De: ' + ${colectivo.getRecorridos().get(1).origen.nombre}+ ' a '+${colectivo.getRecorridos().get(1).destino.nombre}">De "Rivadavia" a "Mza"</h1>
+  <div class="container">
+  <table class="table table-hover table-bordered">
+    <thead class="bg-dark text-light">
+      <tr>
+        <th class="text-center" scope="col">Salida</th>
+        <th class="text-center" scope="col">Llegada</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr th:each="detalleRecorrido :${colectivo.getRecorridos().get(1).detalleRecorridos}" >
+      <td class="text-center" th:text="*{detalleRecorrido.horaInicio}">Hora de Salida</td>
+      <td class="text-center" th:text="*{detalleRecorrido.horaFin}">Hora de Llegada</td>
+    </tr>
+    </tbody>
+  </table>
+</div> 
+
+
+
+
+  <!--========================================================== -->
+  <!--FOOTER-->
+  <!--========================================================== -->
+
+
+  <footer th:replace="components/footer :: footer"></footer>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+</body>
+
+</html>
