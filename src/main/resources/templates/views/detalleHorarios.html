@@ -24,7 +24,6 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
-
 </head>
 
 <body>
@@ -58,6 +57,8 @@
     }
 </script>
 
+
+
 <br>
 
     <div class="container">
@@ -75,7 +76,7 @@
       </thead>
       <tbody>
        <tr th:each="detalleRecorrido :${colectivo.getRecorridos().get(0).detalleRecorridos}" >
-          <td th:if="${detalleRecorrido.vigente}" class="text-center" th:text="*{detalleRecorrido.horaInicio}">Hora de Salida</td>
+          <td th:if="${detalleRecorrido.vigente}" class="inicio text-center" th:text="*{detalleRecorrido.horaInicio}">Hora de Salida</td>
           <td th:if="${detalleRecorrido.vigente}" class="text-center" th:text="*{detalleRecorrido.horaFin}">Hora de Llegada</td>
         </tr>
     </tbody>
@@ -95,7 +96,7 @@
     </thead>
     <tbody>
     <tr th:each="detalleRecorrido :${colectivo.getRecorridos().get(1).detalleRecorridos}" >
-      <td class="text-center" th:text="*{detalleRecorrido.horaInicio}">Hora de Salida</td>
+      <td class="inicio text-center" th:text="*{detalleRecorrido.horaInicio}">Hora de Salida</td>
       <td class="text-center" th:text="*{detalleRecorrido.horaFin}">Hora de Llegada</td>
     </tr>
     </tbody>
@@ -117,6 +118,47 @@
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
+  <script>
+    let obtenerDato = document.getElementsByClassName('inicio');
+
+    for(var num=0; num<obtenerDato.length; num++){
+
+
+    const horaActual=new Date();
+    //Voy a hacer q todos partan del mismo dia, dia 0
+    horaActual.setYear(0);
+    horaActual.setMonth(0);
+    horaActual.setDate(0);
+
+    //Voy a calcular el tiempo con una hora mas
+    var numberOfMlSeconds = horaActual.getTime();
+    var addMlSeconds = 60 * 60000;
+    var horaActualMasUnaHora = new Date(numberOfMlSeconds + addMlSeconds);
+
+
+    const horaCelda = converseStringInDate(obtenerDato[num].innerText);
+
+
+   if(horaCelda>=horaActual && horaCelda<=horaActualMasUnaHora ){
+        celda=obtenerDato[num];
+        celda.style.backgroundColor="#95c799";
+    }
+    if(horaActual.getHours()=="23" && horaCelda.getHours()=="0" ){
+        celda=obtenerDato[num];
+        celda.style.backgroundColor="#95c799";
+    }
+
+}
+
+
+function converseStringInDate(horaGuardada){
+    let timePieces= horaGuardada.split(":");
+    return (new Date(0,0,0,timePieces[0], timePieces[1], timePieces[2]));
+}
+
+  </script>
+
 </body>
 
 </html>
