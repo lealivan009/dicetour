@@ -32,5 +32,5 @@
 
 function converseStringInDate(horaGuardada){
     let timePieces= horaGuardada.split(":");
-    return (new Date(0,0,0,timePieces[0], timePieces[1], 59)); //timePieces[2]
+    return (new Date(0,0,0,timePieces[0], timePieces[1], timePieces[2]));
 }
